@@ -5,4 +5,4 @@ git:
     source_file_extension: json
     source_language: en
     source_file_dir: core/resources/i18n
-    translation_files_expression: 'kaspa-ng_<lang>'
+    translation_files_expression: 'core/resources/i18n/kaspa-ng_<lang>.json'
