@@ -4,4 +4,4 @@ git:
     file_format: KEYVALUEJSON
     source_language: en
     source_file: core/resources/i18n/kaspa-ng_en.json
-    translation_files_expression: 'core/resources/i18n/kaspa-ng_<lang>.json;'
+    translation_files_expression: 'core/resources/i18n/kaspa-ng_<lang>.json'
