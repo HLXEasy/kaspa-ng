@@ -1,8 +1,8 @@
 git:
   filters:
-  - filter_type: dir
+  - filter_type: file
     file_format: KEYVALUEJSON
     source_file_extension: json
     source_language: en
-    source_file_dir: core/resources/i18n
-    translation_files_expression: 'core/resources/i18n/kaspa-ng_<lang>.json'
+    source_file: core/resources/i18n/kaspa-ng_en.json
+    translation_files_expression: 'core/resources/i18n/kaspa-ng_<lang>.json;'
