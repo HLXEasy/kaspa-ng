@@ -8560,7 +8560,7 @@
       "Please note, copying to clipboard carries a risk of exposing your mnemonic to malware.": "Panoya kopyalamak, gizli cümlenizi zararlı yazılımların erişimine açma riskini taşır.",
       "Please select an account type": "Lütfen bir hesap türü seçin",
       "Please select the private key to export": "Lütfen dışa aktarılacak edilecek özel anahtarı seçin",
-      "Please set node to 'Disabled' to delete the data folder": "Veri klasörünü silmek için lütfen node'u \"Devre Dışı\" hâle getirin",
+      "Please set node to 'Disabled' to delete the data folder": "Veri klasörünü silmek için lütfen node'u 'Devre Dışı' hâle getirin",
       "Please specify the name of the default account. The wallet will be created with a default account. Once created, you will be able to create additional accounts as you need.": "Lütfen varsayılan hesabınızın ismini belirleyin. Cüzdanınız varsayılan bir hesap ile oluşturulacaktır. Varsayılan hesap oluşturulduktan sonra isterseniz yeni hesaplar oluşturabilirsiniz.",
       "Please specify the name of the new wallet": "Lütfen yeni cüzdanın ismini belirleyin",
       "Please specify the private key type for the new wallet": "Lütfen yeni cüzdan için özel anahtar türünüzü belirtin",
