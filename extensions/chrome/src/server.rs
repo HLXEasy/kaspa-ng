@@ -31,14 +31,15 @@ extern "C" {
     fn open_popup_window();
 }
 
+type PortEventsClosures =
+    Mutex<HashMap<PortId, (Rc<chrome_runtime_port::Port>, Vec<Rc<PortEventClosure>>)>>;
 pub struct Server {
     #[allow(dead_code)]
     wallet: Arc<CoreWallet>,
     wallet_server: Arc<WalletServer>,
     closure: Mutex<Option<Rc<ListenerClosure>>>,
     port_closure: Mutex<Option<Rc<PortListenerClosure>>>,
-    port_events_closures:
-        Mutex<HashMap<PortId, (Rc<chrome_runtime_port::Port>, Vec<Rc<PortEventClosure>>)>>,
+    port_events_closures: PortEventsClosures,
     chrome_extension_id: String,
     // event pending delivery after the popup is open
     pending_request: Mutex<Option<PendingRequest>>,
@@ -63,15 +64,19 @@ struct ExtensionMessage {
     data: JsValue,
 }
 
+// TODO: remove this
 #[derive(Debug)]
 struct InternalMessage {
+    #[allow(dead_code)]
     target: Target,
+    #[allow(dead_code)]
     data: Vec<u8>,
 }
 
 #[derive(Debug)]
 enum Message {
     Web(ExtensionMessage),
+    #[allow(dead_code)]
     Internal(InternalMessage),
 }
 
@@ -89,16 +94,17 @@ impl From<InternalMessage> for Message {
 fn msg_to_req(msg: js_sys::Object) -> Result<Message> {
     let msg_type = msg.get_string("type")?;
 
-    if msg_type == "WebAPI" {
+    if msg_type == "web-api" {
         let info = msg.get_object("data")?;
         let action = ExtensionActions::from_str(&info.get_string("action")?)
-            .expect("`action` is required for WEBAPI message.");
+            .expect("`action` is required for `web-api` message.");
         let data = info.get_value("data")?;
         let rid = info.try_get_string("rid")?;
 
         return Ok(ExtensionMessage { action, data, rid }.into());
     }
 
+    // TODO: remove this
     if msg_type == "Internal" {
         let info = msg.get_value("data")?;
         let (target, data) = jsv_to_req(info)?;
@@ -171,6 +177,7 @@ impl Server {
             None,
             Some(resolver),
             Some(network_id),
+            None,
         )?);
         let rpc_ctl = wrpc_client.ctl().clone();
         let rpc_api: Arc<DynRpcApi> = wrpc_client;
