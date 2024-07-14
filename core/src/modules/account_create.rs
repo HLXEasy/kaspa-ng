@@ -107,7 +107,7 @@ impl ModuleT for AccountCreate {
                 let prv_key_data_map = core.prv_key_data_map.clone();
 
                 Panel::new(self)
-                    .with_caption("Create Account")
+                    .with_caption(i18n("Create Account"))
                     .with_back_enabled(core.has_stack(), |_this| {
                         core.back();
                     })

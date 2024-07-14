@@ -114,7 +114,7 @@ impl ModuleT for Export {
                         })
                         .with_header(|_ctx,ui| {
                             ui.add_space(64.);
-                            ui.label("Please select export type");
+                            ui.label(i18n("Please select export type"));
                         })
                         .with_body(|this,ui| {
 
@@ -203,7 +203,7 @@ impl ModuleT for Export {
                                 &mut this.context.focus,
                                 Focus::WalletSecret,
                                 |ui, text| {
-                                    ui.label(RichText::new("Enter your wallet secret").size(12.).raised());
+                                    ui.label(RichText::new(i18n("Enter your wallet secret")).size(12.).raised());
                                     ui.add_sized(theme_style().panel_editor_size, TextEdit::singleline(text)
                                         .vertical_align(Align::Center)
                                         .password(true))
@@ -226,7 +226,7 @@ impl ModuleT for Export {
                                     &mut this.context.focus,
                                     Focus::PaymentSecret,
                                     |ui, text| {
-                                        ui.label(RichText::new("Enter your payment secret").size(12.).raised());
+                                        ui.label(RichText::new(i18n("Enter your payment secret")).size(12.).raised());
                                         ui.add_sized(theme_style().panel_editor_size, TextEdit::singleline(text)
                                             .vertical_align(Align::Center)
                                             .password(true))
@@ -289,9 +289,9 @@ impl ModuleT for Export {
                     self.state = State::Exporting;
                 }
                 State::Exporting => {
-                    ui.heading("Exporting");
+                    ui.heading(i18n("Exporting"));
                     ui.label(" ");
-                    ui.label("Exporting... please wait...");
+                    ui.label(i18n("Exporting... please wait..."));
                     ui.label(" ");
                     ui.add_space(64.);
                     ui.add(egui::Spinner::new().size(92.));
@@ -319,7 +319,7 @@ impl ModuleT for Export {
                     self.context.zeroize();
 
                     Panel::new(self)
-                        .with_caption("Export Error")
+                        .with_caption(i18n("Export Error"))
                         .with_back(|this| {
                             this.state = State::Select;
                         })
@@ -331,7 +331,7 @@ impl ModuleT for Export {
                             ui.label(" ");
                         })
                         .with_footer(|this,ui| {
-                            if ui.large_button("Restart").clicked() {
+                            if ui.large_button(i18n("Restart")).clicked() {
                                 this.state = State::Select;
                             }
                         })

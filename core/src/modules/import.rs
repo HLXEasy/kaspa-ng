@@ -59,12 +59,12 @@ impl ModuleT for Import {
                 State::Words => {
 
                     Panel::new(self)
-                        .with_caption("Mnemonic Import")
+                        .with_caption(i18n("Mnemonic Import"))
                         .with_close_enabled(false, |_|{
                         })
                         .with_header(|this,ui| {
                             // ui.add_space(64.);
-                            ui.label("Importing word N/N");
+                            ui.label(i18n("Importing word N/N"));
 
                             ui.horizontal(|ui|{
                             // ui.vertical_centered_justified(|ui|{
@@ -114,9 +114,9 @@ impl ModuleT for Import {
 
                 }
                 State::Select => {
-                    ui.heading("Select Wallet");
+                    ui.heading(i18n("Select Wallet"));
                     ui.label(" ");
-                    ui.label("Select a wallet to unlock");
+                    ui.label(i18n("Select a wallet to unlock"));
                     ui.label(" ");
                     // ui.add_space(32.);
 
@@ -137,7 +137,7 @@ impl ModuleT for Import {
                         });
                 }
                 State::Unlock(message) => {
-                    ui.heading("Unlock Wallet");
+                    ui.heading(i18n("Unlock Wallet"));
 
                     egui::ScrollArea::vertical()
                         .id_source("unlock-wallet")
@@ -153,7 +153,7 @@ impl ModuleT for Import {
                                 ui.label(" ");
 
                                 ui.label(
-                                    RichText::new("Error unlocking wallet")
+                                    RichText::new(i18n("Error unlocking wallet"))
                                         .color(egui::Color32::from_rgb(255, 120, 120)),
                                 );
                                 ui.label(
@@ -164,7 +164,7 @@ impl ModuleT for Import {
                                 ui.label(" ");
                             }
 
-                            ui.label("Enter your password to unlock your wallet");
+                            ui.label(i18n("Enter your password to unlock your wallet"));
                             ui.label(" ");
 
                             ui.add_sized(

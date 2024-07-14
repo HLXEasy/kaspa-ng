@@ -79,7 +79,7 @@ async fn get_server_list() -> Result<Vec<Server>> {
     }
 
     // If no resolver was able to connect, return an error
-    Err(Error::custom("Unable to connect to any resolver"))
+    Err(Error::custom(i18n("Unable to connect to any resolver")))
 }
 
 async fn fetch_public_servers() -> Result<Arc<HashMap<Network, Vec<Server>>>> {
