@@ -309,7 +309,7 @@ jobs:
           runner.os == 'macOS' &&
           runner.arch == 'x64'
         run: |
-          mkdir -p /Users/runner/.cargo/bin/
+          which cargo
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           source $HOME/.cargo/env
 
