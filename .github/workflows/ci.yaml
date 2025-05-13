@@ -304,15 +304,6 @@ jobs:
           name: kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip
           path: kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip
 
-      - name: Install rustup on MacOS (x64)
-        if: |
-          runner.os == 'macOS' &&
-          runner.arch == 'x64'
-        run: |
-          which cargo
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-          source $HOME/.cargo/env
-
       - name: Build on MacOS (x64)
         if: |
           runner.os == 'macOS' &&
