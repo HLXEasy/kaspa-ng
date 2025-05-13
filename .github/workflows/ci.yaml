@@ -224,7 +224,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ macos-13 ]
+        os: [ macos-13, macos-latest ]
     name: Building, ${{ matrix.os }}
     steps:
 
@@ -284,8 +284,10 @@ jobs:
           name: kaspa-ng-${{ env.SHORT_SHA }}-windows-x64.zip
           path: kaspa-ng-${{ env.SHORT_SHA }}-windows-x64/kaspa-ng-${{ env.SHORT_SHA }}-windows-x64.zip
 
-      - name: Build on MacOS
-        if: runner.os == 'macOS'
+      - name: Build on MacOS (arm64)
+        if: |
+          runner.os == 'macOS' &&
+          runner.arch == 'ARM64'
         run: |
           mkdir kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64 || true
           cargo build --bin kaspa-ng --release
@@ -293,12 +295,34 @@ jobs:
           archive="kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip"
           zip -r "${archive}" ./kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/*
 
-      - name: Upload MacOS build to GitHub 
-        if: runner.os == 'macOS'
+      - name: Upload MacOS (arm64) build to GitHub
+        if: |
+          runner.os == 'macOS' &&
+          runner.os == 'ARM64'
         uses: actions/upload-artifact@v4
         with: 
           name: kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip
           path: kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip
+
+      - name: Build on MacOS (x64)
+        if: |
+          runner.os == 'macOS' &&
+          runner.arch == 'x64'
+        run: |
+          mkdir kaspa-ng-${{ env.SHORT_SHA }}-macos-x64 || true
+          cargo build --bin kaspa-ng --release
+          cp target/release/kaspa-ng kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/
+          archive="kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/kaspa-ng-${{ env.SHORT_SHA }}-macos-x64.zip"
+          zip -r "${archive}" ./kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/*
+
+      - name: Upload MacOS (x64) build to GitHub
+        if: |
+          runner.os == 'macOS' &&
+          runner.os == 'x64'
+        uses: actions/upload-artifact@v4
+        with:
+          name: kaspa-ng-${{ env.SHORT_SHA }}-macos-x64.zip
+          path: kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/kaspa-ng-${{ env.SHORT_SHA }}-macos-x64.zip
 
       - name: Build on Linux
         if: runner.os == 'Linux'
