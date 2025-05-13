@@ -291,17 +291,14 @@ jobs:
         run: |
           mkdir kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64 || true
           cargo build --bin kaspa-ng --release
-          cp target/release/kaspa-ng kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/
-          archive="kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip"
-          zip -r "${archive}" ./kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/*
 
       - name: Upload MacOS (arm64) build to GitHub
         if: |
           runner.os == 'macOS' &&
           runner.arch == 'ARM64'
         uses: actions/upload-artifact@v4
-        with: 
-          name: kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip
+        with:
+          name: target/release/kaspa-ng
           path: kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64/kaspa-ng-${{ env.SHORT_SHA }}-macos-arm64.zip
 
       - name: Build on MacOS (x64)
@@ -312,9 +309,6 @@ jobs:
           source $HOME/.cargo/env
           mkdir kaspa-ng-${{ env.SHORT_SHA }}-macos-x64 || true
           cargo build --bin kaspa-ng --release
-          cp target/release/kaspa-ng kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/
-          archive="kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/kaspa-ng-${{ env.SHORT_SHA }}-macos-x64.zip"
-          zip -r "${archive}" ./kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/*
 
       - name: Upload MacOS (x64) build to GitHub
         if: |
@@ -322,7 +316,7 @@ jobs:
           runner.arch == 'x64'
         uses: actions/upload-artifact@v4
         with:
-          name: kaspa-ng-${{ env.SHORT_SHA }}-macos-x64.zip
+          name: target/release/kaspa-ng
           path: kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/kaspa-ng-${{ env.SHORT_SHA }}-macos-x64.zip
 
       - name: Build on Linux
