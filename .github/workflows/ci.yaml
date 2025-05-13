@@ -309,6 +309,7 @@ jobs:
           runner.os == 'macOS' &&
           runner.arch == 'x64'
         run: |
+          source $HOME/.cargo/env
           mkdir kaspa-ng-${{ env.SHORT_SHA }}-macos-x64 || true
           cargo build --bin kaspa-ng --release
           cp target/release/kaspa-ng kaspa-ng-${{ env.SHORT_SHA }}-macos-x64/
